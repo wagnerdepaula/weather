@@ -18,7 +18,7 @@
 		D0059CBC210424EB007D6AE3 /* IBMPlexSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0059CB8210424EB007D6AE3 /* IBMPlexSans-Light.otf */; };
 		D0059CBF21042580007D6AE3 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CBE21042580007D6AE3 /* Fonts.swift */; };
 		D0059CC2210425FD007D6AE3 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CC1210425FD007D6AE3 /* Manager.swift */; };
-		D0059CC521042708007D6AE3 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CC421042708007D6AE3 /* City.swift */; };
+		D0059CC521042708007D6AE3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CC421042708007D6AE3 /* Location.swift */; };
 		D0059CCC210433AF007D6AE3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CCB210433AF007D6AE3 /* Colors.swift */; };
 		D0059CD02104B908007D6AE3 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CCF2104B908007D6AE3 /* UITableViewCell.swift */; };
 		D0059CD22104E174007D6AE3 /* UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CD12104E174007D6AE3 /* UISearchBar.swift */; };
@@ -41,7 +41,7 @@
 		D0059CB8210424EB007D6AE3 /* IBMPlexSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Light.otf"; sourceTree = "<group>"; };
 		D0059CBE21042580007D6AE3 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		D0059CC1210425FD007D6AE3 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		D0059CC421042708007D6AE3 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		D0059CC421042708007D6AE3 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D0059CCB210433AF007D6AE3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D0059CCF2104B908007D6AE3 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		D0059CD12104E174007D6AE3 /* UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBar.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		D0059CC3210426F2007D6AE3 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				D0059CC421042708007D6AE3 /* City.swift */,
+				D0059CC421042708007D6AE3 /* Location.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 				D0059CA521040FF6007D6AE3 /* ViewController.swift in Sources */,
 				D05C28CF2105682000B0D63B /* LocationViewController.swift in Sources */,
 				D0059CD02104B908007D6AE3 /* UITableViewCell.swift in Sources */,
-				D0059CC521042708007D6AE3 /* City.swift in Sources */,
+				D0059CC521042708007D6AE3 /* Location.swift in Sources */,
 				D0059CBF21042580007D6AE3 /* Fonts.swift in Sources */,
 				D05C28D32105953100B0D63B /* HistoryViewController.swift in Sources */,
 				D0059CCC210433AF007D6AE3 /* Colors.swift in Sources */,
