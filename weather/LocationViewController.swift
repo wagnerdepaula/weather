@@ -11,6 +11,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     
     var location:Location!
     var days:[Day] = []
+    var city:City!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,6 +34,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         self.location = Manager.sharedManager().location
                         self.days = self.location.consolidated_weather!
+                        UserDefaults.standard.set(self.city, forKey: "SavedIntArray")
                         self.tableView.reloadData()
                     }
                 }
