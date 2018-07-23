@@ -11,26 +11,44 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
-    
     var locations:[Location] = [Location]()
-    var location:Location!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
          // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
+        
+       
+        getSaveLocations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "History"
-        // History button
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(self.onClear))
-        
-        
-        let loc = UserDefaults.standard.stringArray(forKey: "location")
-        //print(loc)
+    }
+    
+    func getSaveLocations() {
+        if let savedLocations = UserDefaults.standard.stringArray(forKey: "locations") {
+            for loc in savedLocations {
+                let woeid = Int(loc)!
+                Manager.sharedManager().getWeatherFromCity(woeid, completion: { [] (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        DispatchQueue.main.async {
+                            // Check saved locations and update tableview
+                            if let location = Manager.sharedManager().location {
+                               self.locations.append(location)
+                                if (self.locations.count == savedLocations.count) {
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        }
     }
 
     
@@ -39,28 +57,28 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! LocationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! HistoryCell
         let city = locations[indexPath.row]
         cell.titleLabel.text = city.title
         cell.woeidLabel.text = String(city.woeid)
-        cell.coordinatesLabel.text = city.latt_long
+        cell.timeLabel.text = city.location_type
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 115.0
+        return 90.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.location = locations[indexPath.row]
-        self.performSegue(withIdentifier: "LocationViewController", sender: self)
+        //self.location = locations[indexPath.row]
+        //self.performSegue(withIdentifier: "LocationViewController", sender: self)
         deselectRow()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "LocationViewController") {
-            let viewController = segue.destination as! LocationViewController
-            viewController.location = self.location
+            //let viewController = segue.destination as! LocationViewController
+            //viewController.location = self.location
         }
     }
     
@@ -69,9 +87,34 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
+}
+
+
+
+
+
+// HistoryCell
+
+class HistoryCell: UITableViewCell {
     
-    @objc func onClear() {
-       print("Clear History")
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var woeidLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    var initialized = false
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard initialized == false else { return }
+        initialized = true
+        
+        titleLabel.font = Font.medium.of(size: 18)
+        titleLabel.textColor = Color.blue
+        
+        woeidLabel.font = Font.regular.of(size: 16)
+        woeidLabel.textColor = Color.gray
+        
+        timeLabel.font = Font.regular.of(size: 16)
+        timeLabel.textColor = Color.gray
+
     }
-    
 }

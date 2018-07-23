@@ -14,7 +14,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var locations:[Location] = [Location]()
     var location:Location!
-    var city:City!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +91,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.location = locations[indexPath.row]
-        self.city = self.location
         self.performSegue(withIdentifier: "LocationViewController", sender: self)
         deselectRow()
     }
@@ -101,11 +99,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if (segue.identifier == "LocationViewController") {
             let viewController = segue.destination as! LocationViewController
             viewController.location = self.location
-            viewController.city = self.city
         }
         
         if (segue.identifier == "HistoryViewController") {
-            let viewController = segue.destination as! HistoryViewController
+            //let viewController = segue.destination as! HistoryViewController
         }
     }
     

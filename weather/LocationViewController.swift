@@ -11,7 +11,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     
     var location:Location!
     var days:[Day] = []
-    var city:City!
+    var locations:[String]!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,6 +21,9 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
+        
+        // Get current saved locations
+        locations = UserDefaults.standard.stringArray(forKey: "locations")
         
         getWeather()
     }
@@ -34,12 +37,17 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         self.location = Manager.sharedManager().location
                         self.days = self.location.consolidated_weather!
-                        UserDefaults.standard.set(self.city, forKey: "SavedIntArray")
+                        self.addNewLocation(woeid: woeid)
                         self.tableView.reloadData()
                     }
                 }
             })
         }
+    }
+    
+    func addNewLocation(woeid:Int) {
+        locations.append(String(woeid))
+        UserDefaults.standard.set(locations, forKey: "locations")
     }
 
     
@@ -61,7 +69,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 115.0
+        return 100.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
