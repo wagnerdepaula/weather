@@ -17,10 +17,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         // Remove blank cells from tableView
+        // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
         
-       
+        // Get saved locations
         getSaveLocations()
     }
     
@@ -105,12 +105,9 @@ class HistoryCell: UITableViewCell {
         super.layoutSubviews()
         guard initialized == false else { return }
         initialized = true
-        
         titleLabel.font = Font.medium.of(size: 18)
         titleLabel.textColor = Color.darkGray
-        
         woeidLabel.font = Font.regular.of(size: 16)
         woeidLabel.textColor = Color.gray
-
     }
 }

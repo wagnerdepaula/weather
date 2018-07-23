@@ -19,11 +19,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.location.title
-        
-        
-        print(shouldSaveLocation)
-        
-        
+
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
         
@@ -32,6 +28,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
             locations = savedLocations
         }
         
+        // Get weather conditions for next 5 days
         getWeather()
         
     }
@@ -159,13 +156,10 @@ class DayCell: UITableViewCell {
         
         weatherLabel.font = Font.medium.of(size: 18)
         weatherLabel.textColor = Color.blue
-        
         minLabel.font = Font.regular.of(size: 16)
         minLabel.textColor = Color.gray
-        
         maxLabel.font = Font.regular.of(size: 16)
         minLabel.textColor = Color.gray
-        
         dayLabel.font = Font.regular.of(size: 14)
         dayLabel.textColor = Color.gray
     }
