@@ -11,7 +11,8 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     
     var location:Location!
     var days:[Day] = []
-    var locations:[String]!
+    var locations:[String] = [String]()
+    var shouldSaveLocation:Bool = false
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,13 +20,20 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         self.title = self.location.title
         
+        
+        print(shouldSaveLocation)
+        
+        
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
         
-        // Get current saved locations
-        locations = UserDefaults.standard.stringArray(forKey: "locations")
+        // Get saved locations
+        if let savedLocations =  UserDefaults.standard.stringArray(forKey: "locations") {
+            locations = savedLocations
+        }
         
         getWeather()
+        
     }
     
     func getWeather() {
@@ -37,7 +45,11 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         self.location = Manager.sharedManager().location
                         self.days = self.location.consolidated_weather!
-                        self.addNewLocation(woeid: woeid)
+                        
+                        if self.shouldSaveLocation {
+                            self.addNewLocation(woeid: woeid)
+                        }
+                        
                         self.tableView.reloadData()
                     }
                 }
@@ -50,7 +62,6 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         UserDefaults.standard.set(locations, forKey: "locations")
     }
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return days.count
     }

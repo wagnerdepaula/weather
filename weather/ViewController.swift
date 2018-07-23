@@ -99,10 +99,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if (segue.identifier == "LocationViewController") {
             let viewController = segue.destination as! LocationViewController
             viewController.location = self.location
-        }
-        
-        if (segue.identifier == "HistoryViewController") {
-            //let viewController = segue.destination as! HistoryViewController
+            viewController.shouldSaveLocation = true
         }
     }
     

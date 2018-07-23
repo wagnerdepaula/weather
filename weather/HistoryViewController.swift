@@ -12,6 +12,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
     var locations:[Location] = [Location]()
+    var location:Location!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let city = locations[indexPath.row]
         cell.titleLabel.text = city.title
         cell.woeidLabel.text = String(city.woeid)
-        cell.timeLabel.text = city.location_type
         return cell
     }
     
@@ -70,15 +70,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //self.location = locations[indexPath.row]
-        //self.performSegue(withIdentifier: "LocationViewController", sender: self)
+        self.location = locations[indexPath.row]
+        self.performSegue(withIdentifier: "LocationViewController", sender: self)
         deselectRow()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "LocationViewController") {
-            //let viewController = segue.destination as! LocationViewController
-            //viewController.location = self.location
+            let viewController = segue.destination as! LocationViewController
+            viewController.location = self.location
         }
     }
     
@@ -99,7 +99,6 @@ class HistoryCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var woeidLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
     var initialized = false
     
     override func layoutSubviews() {
@@ -108,13 +107,10 @@ class HistoryCell: UITableViewCell {
         initialized = true
         
         titleLabel.font = Font.medium.of(size: 18)
-        titleLabel.textColor = Color.blue
+        titleLabel.textColor = Color.darkGray
         
         woeidLabel.font = Font.regular.of(size: 16)
         woeidLabel.textColor = Color.gray
-        
-        timeLabel.font = Font.regular.of(size: 16)
-        timeLabel.textColor = Color.gray
 
     }
 }

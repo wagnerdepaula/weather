@@ -268,14 +268,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zBu-zx-CiL">
-                                                    <rect key="frame" x="321.5" y="46" width="33.5" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="woeid" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJm-UW-XCI">
-                                                    <rect key="frame" x="20" y="46" width="281.5" height="21"/>
+                                                    <rect key="frame" x="20" y="46" width="335" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -285,16 +279,13 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="CJm-UW-XCI" secondAttribute="bottom" constant="20" id="9a4-Wf-1Rm"/>
                                                 <constraint firstItem="CJm-UW-XCI" firstAttribute="top" secondItem="7U0-LA-j58" secondAttribute="bottom" constant="5" id="IbL-2N-sNG"/>
                                                 <constraint firstItem="7U0-LA-j58" firstAttribute="leading" secondItem="4mp-bP-p4v" secondAttribute="leading" constant="20" id="cDx-Id-gNN"/>
-                                                <constraint firstItem="zBu-zx-CiL" firstAttribute="top" secondItem="7U0-LA-j58" secondAttribute="bottom" constant="5" id="kU6-4x-d0g"/>
-                                                <constraint firstItem="zBu-zx-CiL" firstAttribute="leading" secondItem="CJm-UW-XCI" secondAttribute="trailing" constant="20" id="mTf-oh-1yP"/>
+                                                <constraint firstAttribute="trailing" secondItem="CJm-UW-XCI" secondAttribute="trailing" constant="20" id="ese-4S-2E3"/>
                                                 <constraint firstItem="7U0-LA-j58" firstAttribute="top" secondItem="4mp-bP-p4v" secondAttribute="top" constant="20" id="msx-uD-9Z1"/>
                                                 <constraint firstItem="CJm-UW-XCI" firstAttribute="leading" secondItem="4mp-bP-p4v" secondAttribute="leading" constant="20" id="ocK-VW-LNq"/>
                                                 <constraint firstAttribute="trailing" secondItem="7U0-LA-j58" secondAttribute="trailing" constant="20" id="ohs-v5-mNs"/>
-                                                <constraint firstAttribute="trailing" secondItem="zBu-zx-CiL" secondAttribute="trailing" constant="20" id="xET-3R-jZl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="timeLabel" destination="zBu-zx-CiL" id="dzQ-Na-FEN"/>
                                             <outlet property="titleLabel" destination="7U0-LA-j58" id="UkC-eT-V3t"/>
                                             <outlet property="woeidLabel" destination="CJm-UW-XCI" id="uaJ-Kw-C6l"/>
                                         </connections>
@@ -318,6 +309,7 @@
                     <navigationItem key="navigationItem" id="KPv-qM-nc5"/>
                     <connections>
                         <outlet property="tableView" destination="RMm-Is-plC" id="zes-9F-vau"/>
+                        <segue destination="Uus-SG-rLg" kind="show" identifier="LocationViewController" id="lDs-Ma-Re6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p9V-yx-GVS" sceneMemberID="firstResponder"/>
@@ -325,4 +317,7 @@
             <point key="canvasLocation" x="1193" y="869"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lDs-Ma-Re6"/>
+    </inferredMetricsTieBreakers>
 </document>
