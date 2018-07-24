@@ -98,7 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "LocationViewController") {
             let viewController = segue.destination as! LocationViewController
-            viewController.location = self.location
+            viewController.woeid = self.location.woeid
             viewController.shouldSaveLocation = true
         }
     }

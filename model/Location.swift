@@ -23,6 +23,18 @@ struct Location: Codable {
     }
 }
 
+struct SavedLocation: Codable {
+    let title: String
+    let location_type: String
+    let woeid: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case title
+        case location_type
+        case woeid
+    }
+}
+
 struct Day: Codable {
     let weather_state_name: String
     let weather_state_abbr: String

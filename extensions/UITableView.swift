@@ -28,9 +28,13 @@ extension UITableView {
         isOpaque = true
     }
     
-    func showLoading() {
+    func showSpinner() {
         let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         spinner.startAnimating()
-        self.backgroundView = spinner
+        backgroundView = spinner
+    }
+    
+    func hideSpinner() {
+        backgroundView = UIView()
     }
 }

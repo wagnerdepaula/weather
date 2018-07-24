@@ -11,8 +11,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
-    var locations:[Location] = [Location]()
-    var location:Location!
+    var locations:[SavedLocation] = [SavedLocation]()
+    var location:SavedLocation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.tableFooterView = UIView()
         
         // Get saved locations
-        getSaveLocations()
+        // getSaveLocations()
+        
+        loadLocations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,30 +31,15 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         title = "History"
     }
     
-    func getSaveLocations() {
-        self.tableView.showLoading()
-        if let savedLocations = UserDefaults.standard.stringArray(forKey: "locations") {
-            for loc in savedLocations {
-                let woeid = Int(loc)!
-                Manager.sharedManager().getWeatherFromCity(woeid, completion: { [] (error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        DispatchQueue.main.async {
-                            // Check saved locations and update tableview
-                            if let location = Manager.sharedManager().location {
-                               self.locations.append(location)
-                                if (self.locations.count == savedLocations.count) {
-                                    self.tableView.reloadData()
-                                }
-                            }
-                        }
-                    }
-                })
-            }
-        }
+    func loadLocations() {
+        let data = UserDefaults.standard.data(forKey: "loc")
+        let arr = try! JSONDecoder().decode([SavedLocation].self, from: data!)
+        self.locations = arr
+        self.tableView.reloadData()
+        self.tableView.hideSpinner()
     }
     
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locations.count
     }
@@ -78,7 +65,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "LocationViewController") {
             let viewController = segue.destination as! LocationViewController
-            viewController.location = self.location
+            viewController.woeid = self.location.woeid
         }
     }
     

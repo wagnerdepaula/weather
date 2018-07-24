@@ -9,6 +9,7 @@ import UIKit
 
 class LocationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var woeid:Int!
     var location:Location!
     var days:[Day] = []
     var locations:[String] = [String]()
@@ -18,23 +19,18 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.location.title
+        //self.title = self.location.title
 
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
-        
-        // Get saved locations
-        if let savedLocations =  UserDefaults.standard.stringArray(forKey: "locations") {
-            locations = savedLocations
-        }
-        
+
         // Get weather conditions for next 5 days
         getWeather()
     }
     
     func getWeather() {
-        if let woeid = location?.woeid {
-            self.tableView.showLoading()
+        if let woeid = self.woeid {
+            self.tableView.showSpinner()
             Manager.sharedManager().getWeatherFromCity(woeid, completion: { [] (error) in
                 if let error = error {
                     print(error)
@@ -43,19 +39,37 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                         self.location = Manager.sharedManager().location
                         self.days = self.location.consolidated_weather!
                         if self.shouldSaveLocation {
-                            self.addNewLocation(woeid: woeid)
+                            self.saveLocation(location: self.location)
                         }
                         self.tableView.reloadData()
+                        self.tableView.hideSpinner()
                     }
                 }
             })
         }
     }
     
-    func addNewLocation(woeid:Int) {
-        locations.append(String(woeid))
-        UserDefaults.standard.set(locations, forKey: "locations")
+    
+    func saveLocation(location:Location) {
+        if var saved = getLocations() {
+            let arr = SavedLocation(title: location.title,
+                                location_type: location.location_type,
+                                woeid: location.woeid)
+            
+            saved.append(arr)
+            
+            let data = try! JSONEncoder().encode(saved)
+            UserDefaults.standard.set(data, forKey: "loc")
+        }
     }
+    
+    
+    func getLocations() -> [SavedLocation]? {
+        let data = UserDefaults.standard.data(forKey: "loc")
+        let arr = try! JSONDecoder().decode([SavedLocation].self, from: data!)
+        return arr
+    }
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return days.count
