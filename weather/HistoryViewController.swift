@@ -30,6 +30,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func getSaveLocations() {
+        self.tableView.showLoading()
         if let savedLocations = UserDefaults.standard.stringArray(forKey: "locations") {
             for loc in savedLocations {
                 let woeid = Int(loc)!
@@ -51,7 +52,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
-
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return locations.count

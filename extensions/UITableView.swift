@@ -27,4 +27,10 @@ extension UITableView {
         separatorColor = Color.separator
         isOpaque = true
     }
+    
+    func showLoading() {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        spinner.startAnimating()
+        self.backgroundView = spinner
+    }
 }

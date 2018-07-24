@@ -20,7 +20,7 @@
 		D0059CC2210425FD007D6AE3 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CC1210425FD007D6AE3 /* Manager.swift */; };
 		D0059CC521042708007D6AE3 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CC421042708007D6AE3 /* Location.swift */; };
 		D0059CCC210433AF007D6AE3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CCB210433AF007D6AE3 /* Colors.swift */; };
-		D0059CD02104B908007D6AE3 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CCF2104B908007D6AE3 /* UITableViewCell.swift */; };
+		D0059CD02104B908007D6AE3 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CCF2104B908007D6AE3 /* UITableView.swift */; };
 		D0059CD22104E174007D6AE3 /* UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0059CD12104E174007D6AE3 /* UISearchBar.swift */; };
 		D05C28CF2105682000B0D63B /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C28CE2105682000B0D63B /* LocationViewController.swift */; };
 		D05C28D12105896800B0D63B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C28D02105896800B0D63B /* UIImageView.swift */; };
@@ -43,7 +43,7 @@
 		D0059CC1210425FD007D6AE3 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		D0059CC421042708007D6AE3 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D0059CCB210433AF007D6AE3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		D0059CCF2104B908007D6AE3 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
+		D0059CCF2104B908007D6AE3 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		D0059CD12104E174007D6AE3 /* UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchBar.swift; sourceTree = "<group>"; };
 		D05C28CE2105682000B0D63B /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		D05C28D02105896800B0D63B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 			children = (
 				D0059CBE21042580007D6AE3 /* Fonts.swift */,
 				D0059CCB210433AF007D6AE3 /* Colors.swift */,
-				D0059CCF2104B908007D6AE3 /* UITableViewCell.swift */,
+				D0059CCF2104B908007D6AE3 /* UITableView.swift */,
 				D0059CD12104E174007D6AE3 /* UISearchBar.swift */,
 				D05C28D02105896800B0D63B /* UIImageView.swift */,
 			);
@@ -211,7 +211,7 @@
 			files = (
 				D0059CA521040FF6007D6AE3 /* ViewController.swift in Sources */,
 				D05C28CF2105682000B0D63B /* LocationViewController.swift in Sources */,
-				D0059CD02104B908007D6AE3 /* UITableViewCell.swift in Sources */,
+				D0059CD02104B908007D6AE3 /* UITableView.swift in Sources */,
 				D0059CC521042708007D6AE3 /* Location.swift in Sources */,
 				D0059CBF21042580007D6AE3 /* Fonts.swift in Sources */,
 				D05C28D32105953100B0D63B /* HistoryViewController.swift in Sources */,

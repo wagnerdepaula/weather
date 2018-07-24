@@ -30,11 +30,11 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         
         // Get weather conditions for next 5 days
         getWeather()
-        
     }
     
     func getWeather() {
         if let woeid = location?.woeid {
+            self.tableView.showLoading()
             Manager.sharedManager().getWeatherFromCity(woeid, completion: { [] (error) in
                 if let error = error {
                     print(error)
@@ -42,11 +42,9 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                     DispatchQueue.main.async {
                         self.location = Manager.sharedManager().location
                         self.days = self.location.consolidated_weather!
-                        
                         if self.shouldSaveLocation {
                             self.addNewLocation(woeid: woeid)
                         }
-                        
                         self.tableView.reloadData()
                     }
                 }
@@ -68,7 +66,6 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         let day = days[indexPath.row]
         let max = String(Int(temperatureInFahrenheit(temp: day.max_temp)))
         let min = String(Int(temperatureInFahrenheit(temp: day.min_temp)))
-        cell.weatherLabel.text = day.weather_state_name
         cell.maxLabel.text = max
         cell.minLabel.text = min
         cell.weatherAbbr = day.weather_state_abbr
@@ -77,7 +74,7 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return 60.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -133,7 +130,6 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
 class DayCell: UITableViewCell {
     
     @IBOutlet weak var weatherImage: UIImageView!
-    @IBOutlet weak var weatherLabel: UILabel!
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var maxLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
@@ -154,13 +150,11 @@ class DayCell: UITableViewCell {
             weatherImage.loadImage(url: "\(iconUrl)c.png")
         }
         
-        weatherLabel.font = Font.medium.of(size: 18)
-        weatherLabel.textColor = Color.blue
-        minLabel.font = Font.regular.of(size: 16)
+        minLabel.font = Font.regular.of(size: 18)
         minLabel.textColor = Color.gray
-        maxLabel.font = Font.regular.of(size: 16)
+        maxLabel.font = Font.regular.of(size: 18)
         minLabel.textColor = Color.gray
-        dayLabel.font = Font.regular.of(size: 14)
+        dayLabel.font = Font.regular.of(size: 18)
         dayLabel.textColor = Color.gray
     }
 }
