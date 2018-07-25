@@ -27,11 +27,13 @@ struct SavedLocation: Codable {
     let title: String
     let location_type: String
     let woeid: Int
+    let time_stamp: Date
     
     private enum CodingKeys: String, CodingKey {
         case title
         case location_type
         case woeid
+        case time_stamp
     }
 }
 

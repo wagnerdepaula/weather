@@ -49,28 +49,29 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    
+    // Save location for history purposes
     func saveLocation(location:Location) {
         if var saved = getLocations() {
             let arr = SavedLocation(title: location.title,
                                 location_type: location.location_type,
-                                woeid: location.woeid)
-            
+                                woeid: location.woeid,
+                                time_stamp: Date())
             saved.append(arr)
-            
             let data = try! JSONEncoder().encode(saved)
             UserDefaults.standard.set(data, forKey: "loc")
         }
     }
     
-    
+    // Get saved locations
     func getLocations() -> [SavedLocation]? {
-        let data = UserDefaults.standard.data(forKey: "loc")
-        let arr = try! JSONDecoder().decode([SavedLocation].self, from: data!)
-        return arr
+        if let data = UserDefaults.standard.data(forKey: "loc") {
+            let arr = try! JSONDecoder().decode([SavedLocation].self, from: data)
+            return arr
+        } else {
+            return []
+        }
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return days.count
     }
@@ -131,7 +132,6 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                 return "Day"
         }
     }
-
     
 }
 

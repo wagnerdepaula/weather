@@ -32,11 +32,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func loadLocations() {
-        let data = UserDefaults.standard.data(forKey: "loc")
-        let arr = try! JSONDecoder().decode([SavedLocation].self, from: data!)
-        self.locations = arr
-        self.tableView.reloadData()
-        self.tableView.hideSpinner()
+        if let data = UserDefaults.standard.data(forKey: "loc") {
+            let arr = try! JSONDecoder().decode([SavedLocation].self, from: data)
+            
+            self.locations = arr.sorted(by: { $0.time_stamp.compare($1.time_stamp) == .orderedDescending })
+            self.tableView.reloadData()
+            self.tableView.hideSpinner()
+        }
     }
     
 
@@ -49,11 +51,19 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let city = locations[indexPath.row]
         cell.titleLabel.text = city.title
         cell.woeidLabel.text = String(city.woeid)
+        
+        // set up time stamp
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        let time = dateFormatter.string(from: city.time_stamp)
+        cell.timestampLabel.text = time
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90.0
+        return 75.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,6 +96,7 @@ class HistoryCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var woeidLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
     var initialized = false
     
     override func layoutSubviews() {
@@ -96,5 +107,7 @@ class HistoryCell: UITableViewCell {
         titleLabel.textColor = Color.darkGray
         woeidLabel.font = Font.regular.of(size: 16)
         woeidLabel.textColor = Color.gray
+        timestampLabel.font = Font.regular.of(size: 16)
+        timestampLabel.textColor = Color.gray
     }
 }
