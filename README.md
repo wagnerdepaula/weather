@@ -1,6 +1,3 @@
 # weather
 
-
-![alt text](http://wagnerdepaula.com/weather/IMG_9929.PNG)
-![alt text](http://wagnerdepaula.com/weather/IMG_9930.PNG)
-![alt text](http://wagnerdepaula.com/weather/IMG_9931.PNG)
+  <img src="screen1.png" width="200">  <img src="screen2.png" width="200">  <img src="screen3.png" width="200">
