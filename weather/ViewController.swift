@@ -62,6 +62,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func searchCity(query:String) {
+        self.tableView.showSpinner()
         Manager.sharedManager().searchCity(query, completion: { [] (error) in
             if let error = error {
                 print(error)
@@ -69,6 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.locations = Manager.sharedManager().locations
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.tableView.hideSpinner()
                 }
             }
         })
@@ -76,6 +78,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func searchCityWithCoordinates() {
+        self.tableView.showSpinner()
         Manager.sharedManager().searchCityWithCoordinate(completion: { [] (error) in
             if let error = error {
                 print(error)
@@ -83,6 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.locations = [Manager.sharedManager().locations[0]]
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.tableView.hideSpinner()
                 }
             }
         })

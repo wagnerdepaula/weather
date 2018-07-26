@@ -14,6 +14,8 @@ class Manager: NSObject {
     var api = "https://www.metaweather.com/api/location/search"
     var locations: [Location] = []
     var location: Location!
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
     
     class func sharedManager() -> Manager {
         struct Static {
@@ -68,8 +70,6 @@ class Manager: NSObject {
     
     // Search city using coordinates
     func searchCityWithCoordinate(completion: ((Error?) -> ())?) {
-        let locationManager = CLLocationManager()
-        var currentLocation: CLLocation?
         locationManager.requestWhenInUseAuthorization()
         if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse) {
             currentLocation = locationManager.location
@@ -83,6 +83,7 @@ class Manager: NSObject {
                     let decoder: JSONDecoder = JSONDecoder()
                     do {
                         self.locations = try decoder.decode([Location].self, from: data)
+                        print(self.locations)
                         completion?(nil)
                     } catch {
                         completion?(error)
