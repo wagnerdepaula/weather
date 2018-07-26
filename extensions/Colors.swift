@@ -16,7 +16,7 @@ struct Color {
     static let darkGray     = UIColor(0x333333)
     
     static let blue         = UIColor(0x054ada)
-    
+    static let lightBlue    = UIColor(0xe1ebf7)
     static let separator    = UIColor(0xcccccc)
     static let highlight    = UIColor(0xf0f0f0)
 }

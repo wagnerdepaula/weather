@@ -31,7 +31,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
-        
+
+        // Try to search using coordinates
         searchCityWithCoordinates()
         
     }

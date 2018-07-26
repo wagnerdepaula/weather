@@ -84,12 +84,15 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         cell.maxLabel.text = max
         cell.minLabel.text = min
         cell.weatherAbbr = day.weather_state_abbr
-        cell.dayLabel.text = getDayOfWeek(String(day.applicable_date))
+        
+        cell.dayLabel.text = (indexPath.row == 0) ? "Today" : getDayOfWeek(String(day.applicable_date))
+        cell.backgroundColor = (indexPath.row == 0) ? Color.lightBlue : Color.white
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return (indexPath.row == 0) ? 120.0 : 60.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -114,19 +117,19 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         let myCalendar = Calendar(identifier: .gregorian)
         switch myCalendar.component(.weekday, from: todayDate) {
             case 1:
-                return "Monday"
-            case 2:
-                return "Tuesday"
-            case 3:
-                return "Wednesday"
-            case 4:
-                return "Thursday"
-            case 5:
-                return "Friday"
-            case 6:
-                return "Saturday"
-            case 7:
                 return "Sunday"
+            case 2:
+                return "Monday"
+            case 3:
+                return "Tuesday"
+            case 4:
+                return "Wednesday"
+            case 5:
+                return "Thursday"
+            case 6:
+                return "Friday"
+            case 7:
+                return "Saturday"
             default:
                 print("Error fetching days")
                 return "Day"

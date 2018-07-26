@@ -14,11 +14,6 @@ class Manager: NSObject {
     var api = "https://www.metaweather.com/api/location/search"
     var locations: [Location] = []
     var location: Location!
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
-    var lat: Double = 0
-    var long: Double = 0
-    
     
     class func sharedManager() -> Manager {
         struct Static {
@@ -28,6 +23,7 @@ class Manager: NSObject {
     }
     
     
+    // Search for city
     func searchCity(_ query: String, completion: ((Error?) -> ())?) {
         
         let entry = query.replacingOccurrences(of: " ", with: "+")
@@ -50,11 +46,10 @@ class Manager: NSObject {
     }
     
     
+    // Get weather from city for the next 5 days
     func getWeatherFromCity(_ woeid: Int, completion: ((Error?) -> ())?) {
-        
         let url = URL(string: "\(api)/location/\(woeid)")
         let request = NSMutableURLRequest(url: url!)
-        
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             data, response, error in
             if let data = data {
@@ -71,21 +66,16 @@ class Manager: NSObject {
     }
     
     
-    
-    
+    // Search city using coordinates
     func searchCityWithCoordinate(completion: ((Error?) -> ())?) {
-        
+        let locationManager = CLLocationManager()
+        var currentLocation: CLLocation?
         locationManager.requestWhenInUseAuthorization()
-        
-        
         if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse) {
             currentLocation = locationManager.location
-            
-            lat = (currentLocation?.coordinate.latitude)!
-            long = (currentLocation?.coordinate.longitude)!
-       
+            let lat = (currentLocation?.coordinate.latitude)!
+            let long = (currentLocation?.coordinate.longitude)!
             guard let url = URL(string: "\(api)/?lattlong=\(lat),\(long)") else { return }
-            
             let request = NSMutableURLRequest(url: url)
             let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
                 data, response, error in
@@ -100,7 +90,6 @@ class Manager: NSObject {
                 }
             })
             task.resume()
-            
         }
     }
     
