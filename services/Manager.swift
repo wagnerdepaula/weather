@@ -73,30 +73,35 @@ class Manager: NSObject {
     
     
     
-    
-    func searchCityWithCoordinate(_ query: String, completion: ((Error?) -> ())?) {
+    func searchCityWithCoordinate(completion: ((Error?) -> ())?) {
+        
         locationManager.requestWhenInUseAuthorization()
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
-            currentLocation = locationManager.location!
+        
+        
+        if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse) {
+            currentLocation = locationManager.location
+            
             lat = (currentLocation?.coordinate.latitude)!
             long = (currentLocation?.coordinate.longitude)!
+       
+            guard let url = URL(string: "\(api)/?lattlong=\(lat),\(long)") else { return }
+            
+            let request = NSMutableURLRequest(url: url)
+            let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+                data, response, error in
+                if let data = data {
+                    let decoder: JSONDecoder = JSONDecoder()
+                    do {
+                        self.locations = try decoder.decode([Location].self, from: data)
+                        completion?(nil)
+                    } catch {
+                        completion?(error)
+                    }
+                }
+            })
+            task.resume()
+            
         }
-
-//        let parameter: [String: String] = [
-//            "ll": "\(lat),\(long)"
-//        ]
-//
-//        guard let gitUrl = URL(string: "\(url)/?query=\(entry)") else { return }
-//
-//        URLSession.shared.dataTask(with: gitUrl) { (data, response, error) in
-//            guard let data = data else { return }
-//            do {
-//                let decoder = JSONDecoder()
-//                self.locations = try decoder.decode([Location].self, from: data)
-//            } catch let err {
-//                print("Err", err)
-//            }
-//            }.resume()
     }
     
     

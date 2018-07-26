@@ -32,6 +32,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Remove blank cells from tableView
         tableView.tableFooterView = UIView()
         
+        searchCityWithCoordinates()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +66,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(error)
             } else {
                 self.locations = Manager.sharedManager().locations
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        })
+    }
+    
+    
+    func searchCityWithCoordinates() {
+        Manager.sharedManager().searchCityWithCoordinate(completion: { [] (error) in
+            if let error = error {
+                print(error)
+            } else {
+                self.locations = [Manager.sharedManager().locations[0]]
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
